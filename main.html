@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    h1{
+      text-align: center;
+    }
+    form{
+      text-align: center;
+    }
+    .row {
+      visibility: hidden;
+      display: table;
+      width: 100%;
+    }
+    .column {
+      text-align: center;
+      display: table-cell;
+      padding: 15px;
+      width: 50%;
+    }
+    /*.row:after {
+      content: "";
+      display: table;
+      clear: both;
+    }*/
+    .header {
+      text-align: center;
+    }
+    .t {
+      float: left;
+      width: 14.285%;
+    }
+    @media screen and (max-width:1000px) {
+      .column {
+        display: table-row;
+      }
+      .t {
+        float: inherit;
+        width: auto;
+      }
+    }
+  </style>
+
+  <script>
+    function weather(form)
+    {
+      document.getElementById("row").style.visibility="visible";
+        // Create a request variable and assign a new XMLHttpRequest object to it.
+      var request = new XMLHttpRequest()
+
+      // Open a new connection, using the GET request on the URL endpoint
+      request.open('GET', 'http://api.openweathermap.org/data/2.5/weather?q='+form["State"].value+'&appid=5baa753b68ae86ab873dd71422669983&units=metric', true)
+      var data;
+      request.onload = function () {
+        // Begin accessing JSON data here
+        data = JSON.parse(this.response)
+        if (request.status >= 200 && request.status < 400) {
+          document.getElementById("weatherOut").innerHTML =data.main.temp+"° C, "+data.weather[0].main
+          document.getElementById("weatherIcon").src=("http://openweathermap.org/img/wn/"+data.weather[0].icon+"@2x.png");
+          var request2 = new XMLHttpRequest()
+          request2.open('GET', 'https://api.openweathermap.org/data/2.5/onecall?lat='+data.coord.lat+'&lon='+data.coord.lon+'&appid=5baa753b68ae86ab873dd71422669983&units=metric', true)
+
+          request2.onload = function () {
+            // Begin accessing JSON data here
+            var data2 = JSON.parse(this.response)
+            if (request2.status >= 200 && request2.status < 400) {
+              const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri","Sat"];
+              var dt=new Date(0);
+              dt.setUTCSeconds(data2.daily[0].dt);
+              document.getElementById("weatherOutd1").innerHTML =data2.daily[0].temp.day+"° C<br>"+dayNames[dt.getDay()];
+              document.getElementById("weatherIcond1").src=("http://openweathermap.org/img/wn/"+data2.daily[0].weather[0].icon+"@2x.png");
+              dt=new Date(0);
+              dt.setUTCSeconds(data2.daily[1].dt);
+              document.getElementById("weatherOutd2").innerHTML =data2.daily[1].temp.day+"° C<br>"+dayNames[dt.getDay()];
+              document.getElementById("weatherIcond2").src=("http://openweathermap.org/img/wn/"+data2.daily[1].weather[0].icon+"@2x.png");
+              dt=new Date(0);
+              dt.setUTCSeconds(data2.daily[2].dt);
+              document.getElementById("weatherOutd3").innerHTML =data2.daily[2].temp.day+"° C<br>"+dayNames[dt.getDay()];
+              document.getElementById("weatherIcond3").src=("http://openweathermap.org/img/wn/"+data2.daily[2].weather[0].icon+"@2x.png");
+              dt=new Date(0);
+              dt.setUTCSeconds(data2.daily[3].dt);
+              document.getElementById("weatherOutd4").innerHTML =data2.daily[3].temp.day+"° C<br>"+dayNames[dt.getDay()];
+              document.getElementById("weatherIcond4").src=("http://openweathermap.org/img/wn/"+data2.daily[3].weather[0].icon+"@2x.png");
+              dt=new Date(0);
+              dt.setUTCSeconds(data2.daily[4].dt);
+              document.getElementById("weatherOutd5").innerHTML =data2.daily[4].temp.day+"° C<br>"+dayNames[dt.getDay()];
+              document.getElementById("weatherIcond5").src=("http://openweathermap.org/img/wn/"+data2.daily[4].weather[0].icon+"@2x.png");
+              dt=new Date(0);
+              dt.setUTCSeconds(data2.daily[5].dt);
+              document.getElementById("weatherOutd6").innerHTML =data2.daily[5].temp.day+"° C<br>"+dayNames[dt.getDay()];
+              document.getElementById("weatherIcond6").src=("http://openweathermap.org/img/wn/"+data2.daily[5].weather[0].icon+"@2x.png");
+              dt=new Date(0);
+              dt.setUTCSeconds(data2.daily[6].dt);
+              document.getElementById("weatherOutd7").innerHTML =data2.daily[6].temp.day+"° C<br>"+dayNames[dt.getDay()];
+              document.getElementById("weatherIcond7").src=("http://openweathermap.org/img/wn/"+data2.daily[6].weather[0].icon+"@2x.png");
+            }
+            else {
+            console.log('error')
+            }
+          }
+          // Send request
+          request2.send()
+        } else {
+        console.log('error')
+        }
+      }
+      // Send request
+      request.send()
+    }
+    function COVID(form)
+    {
+      const stateCode={
+          Andaman_and_Nicobar_Islands:"AN",
+          Andhra_Pradesh:"AP",
+          Arunachal_Pradesh:"AR",
+          Assam:"AS",
+          Bihar:"BR",
+          Chandigarh:"CH",
+          Chhattisgarh:"CT",
+          Delhi:"DL",
+          Goa:"GA",
+          Gujarat:"GJ",
+          Haryana:"HR",
+          Himachal_Pradesh:"HP",
+          Jammu_and_Kashmir:"JK",
+          Jharkhand:"JH",
+          Karnataka:"KA",
+          Kerala:"KL",
+          Lakshadweep:"LD",
+          Madhya_Pradesh:"MP",
+          Maharashtra:"MH",
+          Manipur:"MN",
+          Meghalaya:"ML",
+          Mizoram:"MZ",
+          Nagaland:"NL",
+          Odisha:"OR",
+          Punjab:"PB",
+          Rajasthan:"RJ",
+          Sikkim:"SK",
+          Tamil_Nadu:"TN",
+          Telangana:"TG",
+          Tripura:"TR",
+          Uttar_Pradesh:"UP",
+          Uttarakhand:"UT",
+          West_Bengal:"WB"
+        }
+        // Create a request variable and assign a new XMLHttpRequest object to it.
+      var request = new XMLHttpRequest()
+
+      // Open a new connection, using the GET request on the URL endpoint
+      request.open('GET', 'https://data.covid19india.org/v4/min/data.min.json', true)
+
+      request.onload = function () {
+        // Begin accessing JSON data here
+        var State=form["State"].value;
+        console.log(State);
+        State=State.replace(/ /g,"_");
+        console.log(State);
+        var data = JSON.parse(this.response)
+        var confirmedToday;
+        if (request.status >= 200 && request.status < 400) {
+          console.log(data[stateCode[State]])
+          if ("delta" in data[stateCode[State]])
+          {
+            if ("confirmed" in data[stateCode[State]].delta){
+              confirmedToday=data[stateCode[State]].delta.confirmed;
+            }
+            else
+            {
+              confirmedToday=0;
+            }
+          }
+          else
+          {
+            confirmedToday=0;
+          }
+          document.getElementById("COVIDOut").innerHTML ="Confirmed today: "+confirmedToday+"<br>";
+          document.getElementById("COVIDOut").innerHTML +="7 day moving average: "+data[stateCode[State]].delta7.confirmed+"<br>";
+        } else {
+        console.log('error')
+        }
+      }
+      // Send request
+      request.send()
+    }
+
+  </script>
+
+  <body>
+    <header>
+      <h1 style="font-size: 3.5vw;">Covid Travel Guide</h1>
+    </header>
+    <form id="F1" style="font-size: 2vw;">
+      <label for="State">Select State:</label><br>
+      <select name="State" style="font-size: 2vw;">
+        <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+        <option value="Andhra Pradesh">Andhra Pradesh</option>
+        <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+        <option value="Assam">Assam</option>
+        <option value="Bihar">Bihar</option>
+        <option value="Chandigarh">Chandigarh</option>
+        <option value="Chhattisgarh">Chhattisgarh</option>
+        <option value="Delhi">Delhi</option>
+        <option value="Goa">Goa</option>
+        <option value="Gujarat">Gujarat</option>
+        <option value="Haryana">Haryana</option>
+        <option value="Himachal Pradesh">Himachal Pradesh</option>
+        <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+        <option value="Jharkhand">Jharkhand</option>
+        <option value="Karnataka">Karnataka</option>
+        <option value="Kerala">Kerala</option>
+        <option value="Lakshadweep">Lakshadweep</option>
+        <option value="Madhya Pradesh">Madhya Pradesh</option>
+        <option value="Maharashtra">Maharashtra</option>
+        <option value="Manipur">Manipur</option>
+        <option value="Meghalaya">Meghalaya</option>
+        <option value="Mizoram">Mizoram</option>
+        <option value="Nagaland">Nagaland</option>
+        <option value="Odisha">Odisha</option>
+        <option value="Punjab">Punjab</option>
+        <option value="Rajasthan">Rajasthan</option>
+        <option value="Sikkim">Sikkim</option>
+        <option value="Tamil Nadu">Tamil Nadu</option>
+        <option value="Telangana">Telangana</option>
+        <option value="Tripura">Tripura</option>
+        <option value="Uttar Pradesh">Uttar Pradesh</option>
+        <option value="Uttarakhand">Uttarakhand</option>
+        <option value="West Bengal">West Bengal</option>
+      </select><br><br>
+      <input style="font-size: 2vw;" type="button" value="Submit" onclick="weather(form);COVID(form)">
+    </form>
+
+    <div class="row" id="row" hidden="true">
+      <div class="column" style="background-color: lightcoral;">
+        <h1>COVID STATS</h1>
+        <h2 id="COVIDOut"></h2>
+      </div>
+      <div class="column" style="background-color: lightblue;">
+        <h1>Weather</h1><br>
+        <td>
+          <img id="weatherIcon" src="">
+          <h2 id="weatherOut" ></h2>
+          <div>
+            <div id="span1" class="t">
+              <img id="weatherIcond1" src="">
+              <p id="weatherOutd1" ></p>
+            </div>
+            <div id="span2" class="t">
+              <img id="weatherIcond2" src="">
+              <p id="weatherOutd2" ></p>
+            </div>
+            <div id="span2" class="t">
+              <img id="weatherIcond3" src="">
+              <p id="weatherOutd3" ></p>
+            </div>
+            <div id="span2" class="t">
+              <img id="weatherIcond4" src="">
+              <p id="weatherOutd4" ></p>
+            </div>
+            <div id="span2" class="t">
+              <img id="weatherIcond5" src="">
+              <p id="weatherOutd5" ></p>
+            </div>
+            <div id="span2" class="t">
+              <img id="weatherIcond6" src="">
+              <p id="weatherOutd6" ></p>
+            </div>
+            <div id="span2" class="t">
+              <img id="weatherIcond7" src="">
+              <p id="weatherOutd7" ></p>
+            </div>
+          </div>
+        </td>
+        
+      </div>
+    </div>
+
+  </body>
+</html>
