@@ -58,6 +58,7 @@
         // Begin accessing JSON data here
         data = JSON.parse(this.response)
         if (request.status >= 200 && request.status < 400) {
+          console.log(data);
           document.getElementById("weatherOut").innerHTML =data.main.temp+"° C, "+data.weather[0].main
           document.getElementById("weatherIcon").src=("http://openweathermap.org/img/wn/"+data.weather[0].icon+"@2x.png");
           var request2 = new XMLHttpRequest()
@@ -67,6 +68,7 @@
             // Begin accessing JSON data here
             var data2 = JSON.parse(this.response)
             if (request2.status >= 200 && request2.status < 400) {
+              console.log(data2);
               const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri","Sat"];
               var dt=new Date(0);
               dt.setUTCSeconds(data2.daily[0].dt);
