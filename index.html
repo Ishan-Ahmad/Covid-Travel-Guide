@@ -19,8 +19,8 @@
     }
     img {
         max-width: 100%;
-        height: auto;
-        width: auto; /* ie8 */
+
+        width: 15vh;
     }
     .row {
       visibility: hidden;
@@ -64,7 +64,7 @@
       var request = new XMLHttpRequest()
 
       // Open a new connection, using the GET request on the URL endpoint
-      request.open('GET', 'https://api.openweathermap.org/data/2.5/weather?q='+form["State"].value+'&appid=5baa753b68ae86ab873dd71422669983&units=metric', true)
+      request.open('GET', 'http://api.openweathermap.org/data/2.5/weather?q='+form["State"].value+'&appid=5baa753b68ae86ab873dd71422669983&units=metric', true)
       var data;
       request.onload = function () {
         // Begin accessing JSON data here
