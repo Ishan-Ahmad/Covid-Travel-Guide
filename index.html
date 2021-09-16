@@ -64,7 +64,7 @@
       var request = new XMLHttpRequest()
 
       // Open a new connection, using the GET request on the URL endpoint
-      request.open('GET', 'http://api.openweathermap.org/data/2.5/weather?q='+form["State"].value+'&appid=5baa753b68ae86ab873dd71422669983&units=metric', true)
+      request.open('GET', 'https://api.openweathermap.org/data/2.5/weather?q='+form["State"].value+'&appid=5baa753b68ae86ab873dd71422669983&units=metric', true)
       var data;
       request.onload = function () {
         // Begin accessing JSON data here
@@ -74,7 +74,7 @@
           document.getElementById("weatherOut").innerHTML =data.main.temp+"° C, "+data.weather[0].main
           document.getElementById("weatherIcon").src=("http://openweathermap.org/img/wn/"+data.weather[0].icon+"@2x.png");
           var request2 = new XMLHttpRequest()
-          request2.open('GET', 'http://api.openweathermap.org/data/2.5/onecall?lat='+data.coord.lat+'&lon='+data.coord.lon+'&appid=5baa753b68ae86ab873dd71422669983&units=metric', true)
+          request2.open('GET', 'https://api.openweathermap.org/data/2.5/onecall?lat='+data.coord.lat+'&lon='+data.coord.lon+'&appid=5baa753b68ae86ab873dd71422669983&units=metric', true)
 
           request2.onload = function () {
             // Begin accessing JSON data here
