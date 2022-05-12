@@ -192,7 +192,7 @@
             confirmedToday=0;
           }
           document.getElementById("COVIDOut").innerHTML ="Confirmed today: "+confirmedToday+"<br>";
-          document.getElementById("COVIDOut").innerHTML +="7 day moving average: "+data[stateCode[State]].delta7.confirmed+"<br>";
+          document.getElementById("COVIDOut").innerHTML +="7 day moving average: "+(data[stateCode[State]].delta7.confirmed/7).toFixed(2)+"<br>";
         } else {
         console.log('error')
         }
